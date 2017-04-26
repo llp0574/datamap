@@ -1,4 +1,4 @@
-import  $ from 'jquery';
+(function() {
   // Utility function to extend Data Map Zoom functionality
   function Zoom(args) {
     $.extend(this, {
@@ -259,29 +259,28 @@ import  $ from 'jquery';
     return scaleSet[shift];
   };
 
-  export default Zoom;
   // Expose library
-//   if (typeof exports === 'object') {
-//     $ = require('jquery');
-//     module.exports = Zoom;
-//   } else if (typeof define === "function" && define.amd) {
-//     define("zoom", ["require", "jquery"], function(require) {
-//       $ = require('jquery');
-//       return Zoom;
-//     });
-//   } else {
-//     window.Zoom = window.Zoomer = Zoom;
-//   }
+  if (typeof exports === 'object') {
+    $ = require('jquery');
+    module.exports = Zoom;
+  } else if (typeof define === "function" && define.amd) {
+    define("zoom", ["require", "jquery"], function(require) {
+      $ = require('jquery');
+      return Zoom;
+    });
+  } else {
+    window.Zoom = window.Zoomer = Zoom;
+  }
 
-//   if (window.jQuery) {
-//     window.jQuery.fn.zoomer = function(options, callback) {
-//       options = options || {};
-//       options.element = this[0];
-//       var zoomer = new Zoom(options);
-//       if (typeof callback === "function") {
-//         callback(zoomer, options);
-//       }
-//       return this;
-//     };
-//   }
-// })();
+  if (window.jQuery) {
+    window.jQuery.fn.zoomer = function(options, callback) {
+      options = options || {};
+      options.element = this[0];
+      var zoomer = new Zoom(options);
+      if (typeof callback === "function") {
+        callback(zoomer, options);
+      }
+      return this;
+    };
+  }
+})();

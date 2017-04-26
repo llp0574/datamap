@@ -1,6 +1,10 @@
-import $ from 'jquery';
-import Datamaps from './datamaps.world';
-import Zoom from './datamap.zoomer';
+(function() {
+
+  // Save off default references
+  var $ = window.jQuery,
+    Datamaps = window.Datamaps,
+    Zoom = window.Zoom;
+
   function Datamap(hookElement, mapColors) {
     this.$container = $(hookElement);
     this.instance = new Datamaps({
@@ -37,24 +41,25 @@ import Zoom from './datamap.zoomer';
   }
 
   // Expose library
-  // if (typeof exports === 'object') {
-  //   $ = require('jquery');
-  //   Datamaps = require('./datamaps.world');
-  //   Zoom = require('./datamap.zoomer');
-  //   module.exports = Datamap;
-  // } else {
-  //   window.Datamap = Datamap;
-  // }
+  if (typeof exports === 'object') {
+    $ = require('jquery');
+    Datamaps = require('./datamaps.world');
+    Zoom = require('./datamap.zoomer');
+    module.exports = Datamap;
+  } else {
+    window.Datamap = Datamap;
+  }
 
-  // if (window.jQuery) {
-  //   window.jQuery.fn.datamaps = function(options, callback) {
-  //     options = options || {};
-  //     options.element = this[0];
-  //     var datamap = new Datamap(options);
-  //     if (typeof callback === "function") {
-  //       callback(datamap, options);
-  //     }
-  //     return this;
-  //   };
-  // }
-export default Datamap;
+  if (window.jQuery) {
+    window.jQuery.fn.datamaps = function(options, callback) {
+      options = options || {};
+      options.element = this[0];
+      var datamap = new Datamap(options);
+      if (typeof callback === "function") {
+        callback(datamap, options);
+      }
+      return this;
+    };
+  }
+
+})();
